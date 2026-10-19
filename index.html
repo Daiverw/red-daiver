@@ -69,6 +69,12 @@ h3.sub{font-size:19px;color:var(--white);margin:38px 0 14px}
 
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
 .grid2.wide-left{grid-template-columns:1.15fr .85fr}
+.grid2.even{align-items:start}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.chain .cn{background:var(--panel,#11294A);border:1px solid rgba(70,214,235,.35);border-radius:8px;padding:8px 12px;font-family:'Saira Condensed',sans-serif;font-weight:700;color:var(--cyan);text-align:center}
+.chain .cn small{display:block;font:400 11px 'IBM Plex Sans',sans-serif;color:var(--dim)}
+.chain i{width:22px;height:2px;background:var(--cyan)}
+.chain i.pcm{width:44px;background:var(--amber)}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 @media (max-width:900px){.grid2,.grid2.wide-left,.grid3,.grid4{grid-template-columns:1fr}}
@@ -233,6 +239,7 @@ ol.src li{margin-bottom:8px}
     <a href="#contenido">Contenido</a>
     <a href="#arquitectura">Arquitectura</a>
     <a href="#senalizacion">Señalización SS7</a>
+    <a href="#objetivos">Objetivos</a>
     <a href="#dimensionado">Dimensionado</a>
     <a href="#cierre">Cierre</a>
   </nav>
@@ -699,8 +706,296 @@ ol.src li{margin-bottom:8px}
 </section>
 
 <!-- ===================== DIMENSIONADO ===================== -->
+<!-- ===================== OBJETIVOS Y CONTENIDO ===================== -->
+<section id="objetivos">
+  <div class="sec-tag"><span class="num">07</span> Objetivos y contenido</div>
+  <h2 class="sec-title">Los objetivos y los temas de la unidad</h2>
+  <p class="lead">La unidad tiene tres objetivos específicos y ocho temas de contenido. Aquí los desarrollo uno por uno, en el mismo orden del programa. Cada tema también dice en qué parte de la página se puede ver aplicado a mi diseño.</p>
+
+  <h3 class="sub">Los tres objetivos específicos</h3>
+  <div class="grid3">
+    <div class="panel">
+      <span class="tag">Objetivo 1</span>
+      <h3>Estudiar la señalización por canal común</h3>
+      <p>Para redes de conmutación de circuitos. Lo desarrollo en el <a href="#tema1">tema 1</a>. También lo comparo con la señalización en canal en la tabla CAS contra CCS de la sección 06.</p>
+    </div>
+    <div class="panel hot">
+      <span class="tag hot">Objetivo 2</span>
+      <h3>Describir el nivel de enlace de señalización</h3>
+      <p>Lo describo con todas sus funciones en el <a href="#tema3">tema 3</a>. Es el nivel 2 del MTP. Después, en el <a href="#tema7">tema 7</a>, explico el nivel 1 que lo sostiene.</p>
+    </div>
+    <div class="panel good">
+      <span class="tag good">Objetivo 3</span>
+      <h3>Esbozar las características de SS7</h3>
+      <p>Las junto en el <a href="#caract">resumen del final</a>. Son las ideas que definen a SS7, con los datos del material de la profesora.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">Los ocho temas</h3>
+  <div class="tablewrap"><table class="spec">
+    <tr><th>#</th><th>Tema del contenido</th><th>Dónde se desarrolla</th></tr>
+    <tr><td class="k">1</td><td>Señalización por canal común para redes de conmutación de circuitos</td><td><a href="#tema1">Tema 1</a> · y sección 06</td></tr>
+    <tr><td class="k">2</td><td>Parte de transferencia de mensajes (MTP)</td><td><a href="#tema2">Tema 2</a></td></tr>
+    <tr><td class="k">3</td><td>Nivel de enlace de señalización</td><td><a href="#tema3">Tema 3</a></td></tr>
+    <tr><td class="k">4</td><td>Comportamiento del sistema de señalización</td><td><a href="#tema4">Tema 4</a> · y sección 01 (falla del STP-1)</td></tr>
+    <tr><td class="k">5</td><td>Funciones de alto nivel</td><td><a href="#tema5">Tema 5</a></td></tr>
+    <tr><td class="k">6</td><td>Arquitectura de SS7</td><td><a href="#tema6">Tema 6</a> · y sección 05</td></tr>
+    <tr><td class="k">7</td><td>Enlaces de datos de señalización</td><td><a href="#tema7">Tema 7</a></td></tr>
+    <tr><td class="k">8</td><td>Protocolos SS7</td><td><a href="#tema8">Tema 8</a> · y sección 06</td></tr>
+  </table></div>
+
+  <!-- TEMA 1 -->
+  <h3 class="sub" id="tema1">Tema 1 · Señalización por canal común en redes de conmutación de circuitos</h3>
+  <div class="grid2 even">
+    <div class="panel">
+      <p>En una red de conmutación de circuitos, cada llamada tiene un camino dedicado. Pasa por tres fases: establecer el circuito, transferir la información y desconectar.</p>
+      <p>Para armar ese camino las centrales se mandan señales de control. Esas señales sirven para:</p>
+      <ul class="clean">
+        <li>Dar tonos al abonado, como el de ocupado o el de llamada.</li>
+        <li>Transmitir el número marcado.</li>
+        <li>Avisar entre centrales que la llamada no se completó.</li>
+        <li>Avisar el fin de la llamada y dejar libre la ruta.</li>
+        <li>Generar el timbre del teléfono.</li>
+        <li>Pasar datos de facturación, de estado de equipos y troncales, y de diagnóstico.</li>
+        <li>Controlar equipos especiales, por ejemplo canales por satélite.</li>
+      </ul>
+    </div>
+    <div class="panel amber">
+      <h3><span class="ic">◆</span>Del canal propio al canal común</h3>
+      <p><b style="color:var(--white)">En canal.</b> La señalización usa el mismo canal de la voz. Puede ser en banda, con las mismas frecuencias de la voz, o fuera de banda, con una banda angosta dentro de los 4 kHz. Es lenta y hay retardo entre marcar y conectar. Si falla el camino de la voz, no se puede armar la llamada.</p>
+      <p><b style="color:var(--white)">Por canal común.</b> Las señales van por caminos independientes de la voz. Un canal de señalización lleva las señales de muchos canales de voz.</p>
+      <p>En el modo <b style="color:var(--white)">asociado</b> el canal común va cerca de los enlaces troncales. En el modo <b style="color:var(--white)">no asociado</b> se agregan nodos de transferencia (los STP). Entonces hay, en la práctica, dos redes: la de voz y la de señalización. Yo usé el cuasi asociado, como explico en la sección 05.</p>
+    </div>
+  </div>
+
+  <!-- TEMA 2 -->
+  <h3 class="sub" id="tema2">Tema 2 · Parte de transferencia de mensajes (MTP)</h3>
+  <div class="grid2 even">
+    <div class="panel">
+      <p>El MTP lleva la información de una parte de usuario desde un punto de señalización de origen hasta uno de destino. Debe asegurar que llegue <b style="color:var(--white)">sin errores, en orden, sin pérdidas y sin duplicados</b>.</p>
+      <p>Además debe vigilar lo que pasa en la red de señalización. Tiene que manejar las situaciones normales y las anormales, tanto en su propio nodo como en la parte de red que lo rodea.</p>
+      <p>Sus funciones son:</p>
+      <ul class="clean">
+        <li>Clasificar los mensajes que entran y distribuirlos a las capas superiores, o enrutarlos hacia el siguiente SP o STP.</li>
+        <li>Dirigir los mensajes que salen al enlace de señalización correcto.</li>
+        <li>Controlar cada enlace para que la transferencia sea confiable.</li>
+        <li>Mantener al día el estado de los enlaces del SP local y los cambios de la red cercana, y actuar si hace falta.</li>
+        <li>Reducir el daño que causan las fallas en el STP local o en la red cercana.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="tablewrap"><table class="spec">
+        <tr><th>Nivel</th><th>Nombre</th><th>Qué hace</th></tr>
+        <tr><td class="k">MTP 3</td><td>Funciones de red de señalización</td><td>Maneja los mensajes (enrutar, discriminar y distribuir) y gestiona la red.</td></tr>
+        <tr><td class="k">MTP 2</td><td>Funciones del enlace de señalización</td><td>Hace confiable cada enlace. Lo describo en el tema 3.</td></tr>
+        <tr><td class="k">MTP 1</td><td>Enlace de datos de señalización</td><td>La capa física del enlace. Lo describo en el tema 7.</td></tr>
+      </table></div>
+      <div class="note">El MTP no puede manejar la señalización que no está ligada a una conexión. Para eso se necesita el SCCP, que explico en el tema 5. Los tres niveles del MTP se usan siempre.</div>
+    </div>
+  </div>
+
+  <!-- TEMA 3 -->
+  <h3 class="sub" id="tema3">Tema 3 · Nivel de enlace de señalización (MTP nivel 2)</h3>
+  <div class="panel hot">
+    <p>El nivel 2 es la parte del MTP que más trabaja. Es la <b style="color:var(--white)">última</b> en manejar los mensajes que se van a transmitir y la <b style="color:var(--white)">primera</b> en manejar los que se reciben.</p>
+    <p>Su trabajo es hacer confiable cada enlace de señalización. Para eso monitorea los enlaces y reporta su estado. Descarta los mensajes con errores y pide copias de nuevo. Manda acuses de recibo cuando un mensaje llega bien, para que el otro extremo borre su copia. Pone los enlaces en servicio, los prueba antes de usarlos y los vuelve a poner en marcha después de una falla. También numera en secuencia los mensajes que salen y manda al nivel 3 gran parte de lo que recoge.</p>
+  </div>
+
+  <h3 class="sub" style="margin-top:26px">Las siete funciones del nivel 2</h3>
+  <div class="tablewrap"><table class="spec">
+    <tr><th>#</th><th>Función</th><th>Qué hace</th></tr>
+    <tr><td class="k">1</td><td class="k">Delimitación y alineación de la unidad</td><td>Pone una bandera de 8 bits (<span class="mono">01111110</span>) al inicio y al final de cada unidad. El receptor usa la bandera para saber dónde empezar a leer. Como los datos pueden imitar la bandera, el transmisor pone un <b style="color:var(--white)">0 después de cada cinco 1 seguidos</b> (bit stuffing). El receptor quita esos 0. En la sección 06 se puede probar.</td></tr>
+    <tr><td class="k">2</td><td class="k">Detección de errores</td><td>Cada unidad lleva un código de chequeo de 2 octetos (CK). Si llega con errores, se descarta.</td></tr>
+    <tr><td class="k">3</td><td class="k">Corrección de errores</td><td>Pide la retransmisión de las unidades descartadas. El que transmite guarda una copia de cada MSU hasta recibir el acuse. Usa los números de secuencia FSN y BSN y los bits indicadores FIB y BIB, para dar acuse positivo o negativo.</td></tr>
+    <tr><td class="k">4</td><td class="k">Control de flujo</td><td>Regula lo que se manda por el enlace para que no se sature.</td></tr>
+    <tr><td class="k">5</td><td class="k">Procedimiento de aceptación de la unidad</td><td>Revisa que el patrón de bits cumpla las reglas y qué tipo de unidad llegó, antes de aceptarla. El tipo se sabe con el indicador de longitud (LI): 0 es FISU, 1 o 2 es LSSU y más de 2 es MSU.</td></tr>
+    <tr><td class="k">6</td><td class="k">Indicar congestión hacia el nivel 3</td><td>Si el enlace se congestiona, avisa al nivel 3 para que tome acciones.</td></tr>
+    <tr><td class="k">7</td><td class="k">Alineamiento del enlace</td><td>Prepara un enlace para entrar en servicio, lo prueba y lo reactiva después de una falla. Usa unidades LSSU para informar el estado del enlace.</td></tr>
+  </table></div>
+
+  <div class="grid2 even" style="margin-top:22px">
+    <div class="panel">
+      <h3><span class="ic">◆</span>Cuándo se pierde la alineación</h3>
+      <p>El patrón de bits de una unidad debe cumplir reglas fijas. El nivel 2 las revisa todo el tiempo. Si se rompen, da un error de alineación. Pasa cuando:</p>
+      <ul class="clean">
+        <li>llegan 7 o más unos seguidos,</li>
+        <li>la unidad no es un múltiplo de 8 bits,</li>
+        <li>la longitud se sale del rango: menos de 7 octetos (una FISU) o más del máximo de una MSU, que es 272 + 7 = 279 octetos.</li>
+      </ul>
+      <p>Si el campo de información de una MSU puede tener 62 octetos o más, el LI vale 63.</p>
+    </div>
+    <div class="panel">
+      <h3><span class="ic">◆</span>Las tres unidades de señalización</h3>
+      <ul class="clean">
+        <li><b>MSU</b> (mensaje): la más usada. Lleva el mensaje de señalización en el campo SIF, de hasta 272 octetos.</li>
+        <li><b>LSSU</b> (estado del enlace): informa el estado del enlace. Por ejemplo cuando un enlace se va a reiniciar después de una falla.</li>
+        <li><b>FISU</b> (relleno): se manda cuando no hay otras unidades. También sirve de acuse de recibo de las MSU recibidas.</li>
+      </ul>
+      <p>Siempre miden un múltiplo de 8 bits. En la sección 06 se ve cada campo.</p>
+    </div>
+  </div>
+
+  <div class="panel good" style="margin-top:18px">
+    <h3><span class="ic">◆</span>Un ejemplo: qué pasa cuando una MSU llega con error</h3>
+    <ol class="src">
+      <li>La central local 1 manda una MSU con su número de secuencia (FSN) y guarda una copia.</li>
+      <li>En el enlace un bit se daña. La unidad llega a la central local 3 con el código de chequeo mal.</li>
+      <li>El nivel 2 de la central local 3 detecta el error y descarta la unidad.</li>
+      <li>Pide la retransmisión con un acuse negativo, usando los bits indicadores inversos.</li>
+      <li>La central local 1 vuelve a mandar la MSU desde su copia.</li>
+      <li>Cuando llega bien, la central local 3 manda un acuse positivo. Entonces la central local 1 borra la copia.</li>
+    </ol>
+    <p style="margin-top:8px">Todo esto pasa dentro del nivel 2. El nivel 3 y las partes de usuario no se enteran, salvo que el enlace se congestione o falle.</p>
+  </div>
+
+  <!-- TEMA 4 -->
+  <h3 class="sub" id="tema4">Tema 4 · Comportamiento del sistema de señalización</h3>
+  <p style="color:var(--dim);max-width:880px;margin-top:0">El sistema tiene que funcionar bien cuando todo va normal y también cuando algo falla. Así lo explica el material: el MTP debe poder manejar las situaciones normales y las anormales.</p>
+  <div class="grid2 even">
+    <div class="panel good">
+      <h3><span class="ic">◆</span>En funcionamiento normal</h3>
+      <ul class="clean">
+        <li>Los enlaces llevan MSU con los mensajes de las llamadas. Cuando no hay nada que mandar, mandan FISU de relleno.</li>
+        <li>Una llamada se arma con una cadena de mensajes. Por ejemplo IAM, ACM, ANM, REL y RLC. Los paso uno por uno en la sección 03.</li>
+        <li>Cada mensaje pasa por un STP, que lo enruta sin tocar la voz.</li>
+        <li>El diseño busca tiempos de espera menores a un segundo.</li>
+        <li>Los enlaces trabajan con poca carga: 30% como máximo en un enlace y 40% en un STP. Así queda margen para las fallas.</li>
+      </ul>
+    </div>
+    <div class="panel hot">
+      <h3><span class="ic">◆</span>En funcionamiento anormal</h3>
+      <p>El MTP vigila los eventos de la red de señalización y reacciona. Casos del material:</p>
+      <ul class="clean">
+        <li>Una unidad llega con error: el nivel 2 la descarta y pide la retransmisión.</li>
+        <li>Se pierde la alineación: se genera una indicación de error.</li>
+        <li>El enlace se congestiona: el nivel 2 avisa al nivel 3.</li>
+        <li>Un enlace falla: sale de servicio. Cuando vuelve, se alinea de nuevo y se reinicia con LSSU.</li>
+        <li>Falla un nodo cercano: el MTP actualiza el estado de la red y actúa para reducir el daño.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tablewrap" style="margin-top:18px"><table class="spec">
+    <tr><th>Situación</th><th>Quién actúa</th><th>Qué pasa en mi diseño</th></tr>
+    <tr><td class="k">Falla un enlace de un set</td><td>Nivel 2 y nivel 3</td><td>El tráfico sigue por los otros enlaces del set (hasta 16 en paralelo). Cada enlace aguanta 45% de carga si cae su pareja.</td></tr>
+    <tr><td class="k">Falla un STP</td><td>Nivel 3 y el diseño en pares</td><td>El otro STP toma todo el tráfico. Su carga sube del 3,6% al 7,2%, muy debajo del límite del 80%. Se puede probar con el botón de falla del STP-1 en la sección 01.</td></tr>
+    <tr><td class="k">Una MSU llega dañada</td><td>Nivel 2</td><td>Se descarta y se retransmite.</td></tr>
+    <tr><td class="k">El enlace se congestiona</td><td>Nivel 2 avisa al nivel 3</td><td>La carga de mis enlaces es 22,5%, lejos de la congestión.</td></tr>
+  </table></div>
+
+  <!-- TEMA 5 -->
+  <h3 class="sub" id="tema5">Tema 5 · Funciones de alto nivel</h3>
+  <p style="color:var(--dim);max-width:880px;margin-top:0">Encima del MTP están las funciones que usan la señalización para dar servicio. Son las que entienden qué dice el mensaje.</p>
+  <div class="grid2 even">
+    <div class="panel">
+      <h3><span class="ic">◆</span>Partes de usuario (TUP, ISUP)</h3>
+      <p>Manejan los mensajes de señalización de las llamadas. Sus funciones:</p>
+      <ul class="clean">
+        <li>Empaquetar los mensajes que salen y desempaquetar los que entran.</li>
+        <li>Hablar por dentro con las funciones de la central que manejan el tráfico, los servicios y las líneas.</li>
+        <li>Hablar con el MTP, o con el NSP.</li>
+      </ul>
+      <p>El TUP es la parte de usuario de telefonía. El ISUP es la de RDSI.</p>
+    </div>
+    <div class="panel">
+      <h3><span class="ic">◆</span>SCCP</h3>
+      <p>Da servicios de red con conexión y sin conexión. Maneja direcciones extendidas y enrutamiento, y amplía la gestión de red del MTP.</p>
+      <p>Se usa para hablar con bases de datos. Por ejemplo entre el HLR y el VLR de una red celular, o entre un SSP y un SCP.</p>
+      <p>MTP más SCCP forman la <b style="color:var(--white)">NSP</b>, la Parte de Servicio de Red.</p>
+    </div>
+    <div class="panel">
+      <h3><span class="ic">◆</span>TCAP</h3>
+      <p>Es la parte de aplicación de capacidades de transacción. Sirve cuando una aplicación debe pedir datos a una base de datos y esperar la respuesta. Va encima del SCCP.</p>
+      <p>Por ejemplo, la consulta de un número 800 al SCP de mi diseño.</p>
+    </div>
+    <div class="panel">
+      <h3><span class="ic">◆</span>Aplicaciones</h3>
+      <ul class="clean">
+        <li><b>INAP</b>: protocolo de aplicaciones de la red inteligente.</li>
+        <li><b>MAP</b>: parte de aplicaciones móviles.</li>
+        <li><b>OMAP</b>: parte de operación, administración y mantenimiento.</li>
+      </ul>
+      <p>Con ellas la red ofrece llamadas 800 y 900, portabilidad del número, roaming, reenvío y número de quien llama.</p>
+    </div>
+  </div>
+
+  <!-- TEMA 6 -->
+  <h3 class="sub" id="tema6">Tema 6 · Arquitectura de SS7</h3>
+  <div class="panel">
+    <p>La red SS7 tiene dos componentes básicos: el <b style="color:var(--white)">punto de señalización (SP)</b> y el <b style="color:var(--white)">enlace de señalización (SL)</b>. Cada SP tiene un código único, el SPC. Los SP son de tres clases: SSP (la central), STP (transfiere mensajes) y SCP (base de datos de servicios). Los STP van siempre en pares.</p>
+    <p>Los enlaces se llaman A, B, C, D, E y F según qué nodos unen. Varios enlaces en paralelo forman un set, de hasta 16. La red se divide en un plano de control, que arma las conexiones, y un plano de información, por donde viaja la voz. A nivel mundial hay dos niveles independientes, el nacional y el internacional.</p>
+    <p style="margin-bottom:0">Todo esto lo desarrollo con mi diseño en la <a href="#arquitectura">sección 05</a>, con la tabla de los enlaces A a F y el modo cuasi asociado que elegí.</p>
+  </div>
+
+  <!-- TEMA 7 -->
+  <h3 class="sub" id="tema7">Tema 7 · Enlaces de datos de señalización (MTP nivel 1)</h3>
+  <div class="grid2 even">
+    <div class="panel">
+      <p>El nivel 1 es la capa física del enlace. Se encarga del hardware y de la parte eléctrica. Define las interfaces mecánicas y eléctricas para conectar el terminal de señalización a la central, o el enlace a la red.</p>
+      <ul class="clean">
+        <li>Un enlace de datos de señalización es una vía <b style="color:var(--white)">bidireccional</b>. Son dos canales de datos, uno en cada sentido, a la misma velocidad.</li>
+        <li>Se usa solo para MSU, LSSU y FISU. A ese camino se le llama <b style="color:var(--white)">canal de señalización</b>.</li>
+        <li>Puede ir por rutas terrestres o por satélite.</li>
+        <li>No se permiten equipos que interfieran con el dúplex completo, como los canceladores de eco. Podrían causar errores en los mensajes.</li>
+      </ul>
+    </div>
+    <div class="panel amber">
+      <h3><span class="ic">◆</span>Enlace digital y enlace analógico</h3>
+      <p><b style="color:var(--white)">Digital.</b> La velocidad estándar es de <b style="color:var(--white)">64 kbps</b>. Si la central entra por un multiplex PCM de 2 Mbit/s o de 1,5 Mbit/s, el canal de señalización se conmuta como una conexión semipermanente. La ITU recomienda el canal (intervalo de tiempo) <b style="color:var(--white)">16</b> en PCM de 2 Mbit/s (Rec. Q.702). Si no está libre, se puede usar otro. En Suecia, por ejemplo, se usa el canal 1.</p>
+      <p><b style="color:var(--white)">Analógico.</b> Solo en casos excepcionales, cuando no hay PCM. La ITU pide al menos 4,8 kbit/s para el control de llamadas.</p>
+      <p style="margin-bottom:0"><b style="color:var(--white)">Normas.</b> G.703 da las características eléctricas, G.704 las funcionales y la trama, y Q.702 el desempeño de la red de señalización.</p>
+    </div>
+  </div>
+  <h3 class="sub" style="font-size:17px;margin-top:24px">Cómo se arma el enlace en una central digital</h3>
+  <div class="chain">
+    <div class="cn">ST<small>Terminal de señalización</small></div><i></i>
+    <div class="cn">GS<small>Conmutador de grupo</small></div><i></i>
+    <div class="cn">ET<small>Central terminal</small></div><i class="pcm"></i>
+    <div class="cn">ET<small>Central terminal</small></div><i></i>
+    <div class="cn">GS<small>Conmutador de grupo</small></div><i></i>
+    <div class="cn">ST<small>Terminal de señalización</small></div>
+  </div>
+  <p style="color:var(--dim);font-size:14.5px;max-width:900px;margin-top:10px">El terminal de señalización (ST) se une, de forma semipermanente, a un conmutador de grupo (GS). El GS dirige el canal de señalización hacia una central terminal (ET), que lo conecta al enlace PCM. El camino GS más ET de las dos centrales es el <b style="color:var(--white)">enlace de datos de señalización</b>, el nivel 1. Si le sumo los ST, tengo el <b style="color:var(--white)">enlace de señalización (SL)</b>, que equivale a los niveles 1 y 2.</p>
+
+  <!-- TEMA 8 -->
+  <h3 class="sub" id="tema8">Tema 8 · Protocolos SS7</h3>
+  <p style="color:var(--dim);max-width:880px;margin-top:0">SS7 se describe en cuatro niveles. El MTP cubre los tres primeros. Los protocolos que van encima son las partes de usuario y las aplicaciones. El MTP se usa siempre y el SCCP solo cuando hace falta.</p>
+  <div class="tablewrap"><table class="spec">
+    <tr><th>Protocolo</th><th>Significa</th><th>Nivel</th><th>Para qué sirve</th></tr>
+    <tr><td class="k">MTP</td><td>Parte de transferencia de mensajes</td><td>1, 2 y 3</td><td>Transfiere los mensajes de forma confiable entre puntos de señalización.</td></tr>
+    <tr><td class="k">SCCP</td><td>Parte de control de conexión de señalización</td><td>3 y 4</td><td>Señalización con y sin conexión, direcciones extendidas, enrutamiento. Se usa con bases de datos.</td></tr>
+    <tr><td class="k">TUP</td><td>Parte de usuario de telefonía</td><td>4</td><td>Arma y cierra las llamadas telefónicas de la PSTN.</td></tr>
+    <tr><td class="k">ISUP</td><td>Parte de usuario de RDSI</td><td>4</td><td>Arma y cierra llamadas y maneja funciones de RDSI.</td></tr>
+    <tr><td class="k">TCAP</td><td>Parte de aplicación de capacidades de transacción</td><td>7</td><td>Peticiones y respuestas con bases de datos, sobre el SCCP.</td></tr>
+    <tr><td class="k">INAP</td><td>Protocolo de aplicaciones de red inteligente</td><td>7</td><td>Servicios de red inteligente.</td></tr>
+    <tr><td class="k">MAP</td><td>Parte de aplicaciones móviles</td><td>7</td><td>Servicios de telefonía móvil, como el roaming.</td></tr>
+    <tr><td class="k">OMAP</td><td>Parte de operación, administración y mantenimiento</td><td>7</td><td>Operar, administrar y mantener la red.</td></tr>
+    <tr><td class="k">MTUP · MUP · HUP</td><td>Partes de usuario móviles y de handover</td><td>4</td><td>Telefonía móvil y traspaso de llamadas entre celdas.</td></tr>
+    <tr><td class="k">NSP</td><td>Parte de servicio de red (MTP + SCCP)</td><td>1 a 3</td><td>Entrega los mensajes, ligados o no a un circuito, con servicios con y sin conexión.</td></tr>
+  </table></div>
+  <div class="note">La señalización relativa a circuito (para armar llamadas) usa el MTP y el TUP o el ISUP. La no relativa a circuito (para consultar bases de datos) usa MTP, SCCP y TCAP. Las capas se pueden ver una por una en la sección 06.</div>
+
+  <!-- RESUMEN -->
+  <h3 class="sub" id="caract">Resumen: las características de SS7</h3>
+  <div class="panel good">
+    <ul class="clean">
+      <li>Es un estándar <b>global</b> de la ITU-T (antes CCITT). Hay más de 30 variantes nacionales, como la ITU y la ANSI.</li>
+      <li>La señalización es por <b>canal común</b>, fuera de banda y separada de la voz. Un enlace de 64 kbps sirve a muchos canales de voz.</li>
+      <li>Es un sistema <b>digital</b>. También puede operar en canales analógicos de al menos 4,8 kbit/s, y por rutas terrestres y satelitales.</li>
+      <li>Transfiere la información <b>sin errores, en orden, sin pérdidas ni duplicados</b>.</li>
+      <li>Forma una <b>red de señalización</b> con puntos de señalización (SP), puntos de transferencia (STP) y bases de datos (SCP). Los STP siempre en pares.</li>
+      <li>Se describe en <b>cuatro niveles</b>. El MTP cubre los tres primeros y las partes de usuario y aplicaciones el cuarto.</li>
+      <li>Los mensajes van en <b>unidades de señalización</b>: MSU, LSSU y FISU. El campo de información de una MSU llega a 272 octetos.</li>
+      <li>La red se divide en un nivel <b>nacional y otro internacional</b>, con numeración propia (SPC).</li>
+      <li>Sirve a la PSTN, la RDSI, la telefonía móvil y las redes inteligentes.</li>
+      <li>Permite servicios como llamadas 800 y 900, portabilidad del número, roaming, reenvío y número de quien llama.</li>
+      <li>Arma una llamada en <b>menos de un segundo</b>, con una red diseñada con simple estructura, confiabilidad y costos razonables.</li>
+    </ul>
+  </div>
+  <p style="color:var(--dim);margin-top:14px">Todo lo anterior lo apliqué a mi red de 300.000 abonados. Se ve en el diseño de la sección 01 y se comprueba con los cálculos de la sección 08.</p>
+</section>
+
 <section id="dimensionado">
-  <div class="sec-tag"><span class="num">07</span> Dimensionado</div>
+  <div class="sec-tag"><span class="num">08</span> Dimensionado</div>
   <h2 class="sec-title">¿Aguanta la red que diseñé?</h2>
   <p class="lead">Dimensionar es calcular cuántos enlaces y cuánta capacidad hacen falta. Dejé los datos de mi diseño en la calculadora. Puedes cambiarlos y ver qué pasa.</p>
 
@@ -756,7 +1051,7 @@ ol.src li{margin-bottom:8px}
 
 <!-- ===================== CIERRE ===================== -->
 <section id="cierre" style="border-bottom:none">
-  <div class="sec-tag"><span class="num">08</span> Del aula al terreno</div>
+  <div class="sec-tag"><span class="num">09</span> Del aula al terreno</div>
   <h2 class="sec-title">Lo que veo de esto en mi trabajo</h2>
   <p class="lead">Soy técnico de redes principales en VTR. No trabajo sobre una red SS7 de telefonía fija. Pero la idea de separar el control de la voz, y de duplicar lo importante, la veo todos los días.</p>
   <div class="vcards">
